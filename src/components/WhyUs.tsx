@@ -39,14 +39,51 @@ export function WhyUs() {
       </div>
 
       {/* Bento Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+      <div className="bg-[#262626] rounded-2xl p-4 md:p-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
         
-        {/* Column 1 - Outer container with dark card + features list */}
+        {/* Column 1 - Outer container with 3 inner cards (replicated from 3rd position) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
+          className="bg-[#f0efeb] rounded-2xl p-4 flex flex-col gap-3"
+        >
+          {/* Streamlined Process */}
+          <div className="bg-white rounded-xl p-5 mt-3">
+            <Zap className="w-5 h-5 text-[#252525]/50 mb-3" />
+            <h4 className="text-base font-semibold text-[#252525] mb-2">Streamlined Process</h4>
+            <p className="text-sm text-[#252525]/60 leading-relaxed mb-0">
+              Our focused, step-by-step approach saves time and keeps projects moving smoothly.
+            </p>
+          </div>
+
+          {/* Scalable Design */}
+          <div className="bg-white rounded-xl p-5">
+            <Feather className="w-5 h-5 text-[#252525]/50 mb-3" />
+            <h4 className="text-base font-semibold text-[#252525] mb-2">Scalable Design</h4>
+            <p className="text-sm text-[#252525]/60 leading-relaxed mb-0">
+              We create systems that grow with your brand and stay effective over time.
+            </p>
+          </div>
+
+          {/* 24/7 Support */}
+          <div className="bg-white rounded-xl p-5">
+            <Clock className="w-5 h-5 text-[#252525]/50 mb-3" />
+            <h4 className="text-base font-semibold text-[#252525] mb-2">24/7 Dedicated Support</h4>
+            <p className="text-sm text-[#252525]/60 leading-relaxed mb-0">
+              We're always here when you need us, ready to answer questions, provide updates.
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Column 2 - Outer container with dark card + features list (moved from 1st position) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
           className="bg-[#f0efeb] rounded-2xl p-4 flex flex-col gap-3"
         >
           {/* Dark Card */}
@@ -299,53 +336,18 @@ export function WhyUs() {
           </div>
         </motion.div>
 
-        {/* Column 2 - Empty space */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-          className="bg-[#f0efeb] rounded-2xl p-6 flex flex-col relative overflow-hidden"
-        >
-          {/* Empty space */}
-          <div className="flex-1 min-h-[350px]" />
-        </motion.div>
-
-        {/* Column 3 - Outer container with 3 inner cards */}
+        {/* Column 3 - Empty space */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-          className="bg-[#f0efeb] rounded-2xl p-4 flex flex-col gap-3"
+          className="bg-[#f0efeb] rounded-2xl p-6 flex flex-col relative overflow-hidden"
         >
-          {/* Streamlined Process */}
-          <div className="bg-white rounded-xl p-5 mt-3">
-            <Zap className="w-5 h-5 text-[#252525]/50 mb-3" />
-            <h4 className="text-base font-semibold text-[#252525] mb-2">Streamlined Process</h4>
-            <p className="text-sm text-[#252525]/60 leading-relaxed mb-0">
-              Our focused, step-by-step approach saves time and keeps projects moving smoothly.
-            </p>
-          </div>
-
-          {/* Scalable Design */}
-          <div className="bg-white rounded-xl p-5">
-            <Feather className="w-5 h-5 text-[#252525]/50 mb-3" />
-            <h4 className="text-base font-semibold text-[#252525] mb-2">Scalable Design</h4>
-            <p className="text-sm text-[#252525]/60 leading-relaxed mb-0">
-              We create systems that grow with your brand and stay effective over time.
-            </p>
-          </div>
-
-          {/* 24/7 Support */}
-          <div className="bg-white rounded-xl p-5">
-            <Clock className="w-5 h-5 text-[#252525]/50 mb-3" />
-            <h4 className="text-base font-semibold text-[#252525] mb-2">24/7 Dedicated Support</h4>
-            <p className="text-sm text-[#252525]/60 leading-relaxed mb-0">
-              We're always here when you need us, ready to answer questions, provide updates.
-            </p>
-          </div>
+          {/* Empty space */}
+          <div className="flex-1 min-h-[350px]" />
         </motion.div>
+        </div>
       </div>
 
     </section>

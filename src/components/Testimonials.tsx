@@ -41,7 +41,7 @@ export function Testimonials() {
       {/* 3D Orbit Gallery Container */}
       <div className="relative w-full flex items-center justify-center" style={{ height: '80vh', width: '100%' }}>
         <Canvas
-          camera={{ position: [-10, 1.5, 10], fov: 50 }}
+          camera={{ position: [0, -6, 20], fov: 50 }}
           style={{ width: '100%', height: '100%' }}
         >
           <ambientLight intensity={0.5} />
@@ -50,7 +50,7 @@ export function Testimonials() {
           <OrbitControls 
             enablePan={false} 
             enableZoom={false} 
-            enableRotate={true}
+            enableRotate={false}
             minDistance={20}
             maxDistance={20}
           />

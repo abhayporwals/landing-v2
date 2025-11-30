@@ -23,8 +23,8 @@ export function StudioReveal() {
   
   // Text movement - slide out to sides as image expands
   // Text exits faster than image grows to avoid overlap
-  const leftTextX = useTransform(smoothProgress, [0, 0.4], [0, -800])
-  const rightTextX = useTransform(smoothProgress, [0, 0.4], [0, 800])
+  const leftTextX = useTransform(smoothProgress, [0, 0.4], [40, -800])
+  const rightTextX = useTransform(smoothProgress, [0, 0.4], [50, 800])
   
   // "Keep Scrolling" indicator fades out
   const keepScrollingOpacity = useTransform(smoothProgress, [0, 0.15], [1, 0])
@@ -32,6 +32,9 @@ export function StudioReveal() {
   // Overlay text reveals after expansion
   const overlayOpacity = useTransform(smoothProgress, [0.55, 0.75], [0, 1])
   const overlayY = useTransform(smoothProgress, [0.55, 0.75], [40, 0])
+  
+  // Image zoom - starts zoomed in, zooms out as container expands
+  const imageScale = useTransform(smoothProgress, [0, 0.5], [1.6, 1])
 
   return (
     <section ref={containerRef} className="relative z-20 h-[300vh] bg-[#faf8f5]">
@@ -70,7 +73,7 @@ export function StudioReveal() {
                     style={{ x: rightTextX }}
                     className="text-4xl md:text-6xl lg:text-7xl font-bold text-[#252525] tracking-tight"
                 >
-                  Renor
+                  Renorlabs
                 </motion.span>
             </div>
         </div>
@@ -84,9 +87,10 @@ export function StudioReveal() {
             }}
             className="relative z-10 overflow-hidden shadow-2xl"
         >
-            <img 
-                src="https://cdn.prod.website-files.com/684a11845c7dd0b4b7745cd9/684f37523ce7f016f3cf34f4_magnific-sP3LPSZmIKtOUlL6qtGo-Close-Up%20Knitwear%20Duo-new.jpeg" 
+            <motion.img 
+                src="./fuji.png" 
                 alt="Studio Reveal" 
+                style={{ scale: imageScale }}
                 className="w-full h-full object-cover"
                 loading="lazy"
                 decoding="async"
@@ -97,8 +101,8 @@ export function StudioReveal() {
                 style={{ opacity: overlayOpacity, y: overlayY }}
                 className="absolute inset-0 flex items-center justify-center z-20"
             >
-                 <h2 className="text-white text-4xl md:text-6xl lg:text-7xl font-medium text-center px-4 tracking-tight">
-                    Not just a simple studio.
+                 <h2 className="text-[#252525] text-4xl md:text-6xl lg:text-7xl font-medium text-center px-4 tracking-tight">
+                    Not just a simple studio
                  </h2>
             </motion.div>
         </motion.div>

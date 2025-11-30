@@ -39,7 +39,7 @@ export function OurWork() {
   return (
     <section className="relative w-full bg-[#faf8f5]">
       {/* Section Label */}
-      <div className="relative z-10 px-6 md:px-12 lg:px-24 py-24 md:py-32">
+      <div className="relative z-10 px-6 md:px-12 lg:px-24 pt-24 md:pt-32 pb-12 md:pb-16">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

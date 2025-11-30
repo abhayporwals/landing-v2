@@ -9,7 +9,7 @@ export function ParticleSphere() {
   const ROTATION_SPEED_Y = 0.0005
 
   const IMAGE_COUNT = 15
-  const IMAGE_SIZE = 2.5 
+  const IMAGE_SIZE = 3.5 
 
   const groupRef = useRef<THREE.Group>(null)
 

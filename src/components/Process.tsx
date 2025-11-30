@@ -1,12 +1,12 @@
-import { motion, AnimatePresence, useScroll, useTransform, useSpring, MotionValue } from 'framer-motion'
-import { useState, useRef, memo } from 'react'
-import { useInView } from 'framer-motion'
+'use client'
+
+import { motion } from 'framer-motion'
 
 const processes = [
   {
     category: 'Experiential',
     title: 'Architecture',
-    description: 'We build to inspire, but also build to code. At Renor, design is only as strong as its function. Our architects specialize in bridging imagination with reality, ensuring bold concepts meet practical standards. Our network of fabricators span globally and across specialities; whether you\'re creating small scale builds, large permanent structures, or sculpted art pieces - we\'ve got you covered.',
+    description: 'We build to inspire, but also build to code. At Renor, design is only as strong as its function. Our architects specialize in bridging imagination with reality, ensuring bold concepts meet practical standards.',
     services: [
       'Creative and Design Direction',
       'Moodboards',
@@ -18,7 +18,10 @@ const processes = [
       'High Res 3D Mocks',
       'Fabrication Plans',
       'Permitting & Compliance Consulting'
-    ]
+    ],
+    gradient: 'from-[#ff4d00] to-[#ff6d33]',
+    color: '#ff4d00',
+    pastelColor: '#262626'
   },
   {
     category: 'Digital',
@@ -29,7 +32,10 @@ const processes = [
       'Motion & Animation',
       'User Experience / Interface',
       'Development'
-    ]
+    ],
+    gradient: 'from-[#0066ff] to-[#3385ff]',
+    color: '#0066ff',
+    pastelColor: '#262626'
   },
   {
     category: 'Brand',
@@ -41,34 +47,16 @@ const processes = [
       'Logo Design',
       'Brand Guidelines',
       'Typography & Color Systems'
-    ]
+    ],
+    gradient: 'from-[#ffea00] to-[#fff033]',
+    color: '#ffea00',
+    pastelColor: '#262626'
   }
 ]
 
 export function Process() {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
-  const sectionRef = useRef<HTMLElement>(null)
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"]
-  })
-
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 50,
-    damping: 20,
-    restDelta: 0.001
-  })
-
-  const toggleExpand = (index: number) => {
-    setExpandedIndex(expandedIndex === index ? null : index)
-  }
-
   return (
-    <section 
-      ref={sectionRef}
-      className="relative w-full bg-[#faf8f5] px-6 md:px-12 lg:px-24 py-24 md:py-32"
-    >
+    <section className="relative w-full bg-[#faf8f5] px-6 md:px-12 lg:px-24 py-24 md:py-32">
       {/* Section Label */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
@@ -102,175 +90,301 @@ export function Process() {
         </motion.h1>
       </div>
 
-      {/* Process List */}
-      <div className="space-y-0">
-        {processes.map((process, i) => {
-          const start = 0.1 + (i / processes.length) * 0.6
-          const end = start + 0.15
-          return (
-            <ProcessCard
-              key={process.category}
-              process={process}
-              index={i}
-              isExpanded={expandedIndex === i}
-              onToggle={() => toggleExpand(i)}
-              progress={smoothProgress}
-              range={[start, end]}
-            />
-          )
-        })}
+      {/* Card Area - matches original CSS */}
+      <div className="process-card-area mt-16 md:mt-24">
+        {processes.map((process, index) => (
+          <ProcessCard key={process.category} process={process} index={index} />
+        ))}
       </div>
+
+      <style>{`
+        .process-card-area {
+          align-items: center;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          justify-content: center;
+          gap: 2rem;
+          padding: 1rem;
+        }
+
+        .process-card-section {
+          align-items: center;
+          display: flex;
+          height: 20rem;
+          justify-content: center;
+          width: auto;
+          flex-shrink: 0;
+          border: none;
+          outline: none;
+        }
+
+        .process-card-section * {
+          outline: none;
+        }
+
+        .process-card-section *:focus {
+          outline: none;
+          box-shadow: none;
+        }
+
+        .process-card {
+          background-color: rgba(0, 0, 0, 0.05);
+          box-shadow: -0.1rem 1.7rem 6.6rem -3.2rem rgba(0, 0, 0, 0.5);
+          height: 20rem;
+          position: relative;
+          transition: all 1s ease;
+          width: 20rem;
+          border: none;
+          outline: none;
+          border-radius: 1rem;
+          overflow: hidden;
+        }
+
+        .process-card:hover {
+          box-shadow: -0.1rem 1.7rem 6.6rem -3.2rem rgba(0, 0, 0, 0.75);
+          width: 40rem;
+        }
+
+        .process-flip-card {
+          height: 20rem;
+          perspective: 100rem;
+          position: absolute;
+          right: 0;
+          transition: all 1s ease;
+          visibility: hidden;
+          width: 20rem;
+          z-index: 100;
+        }
+
+        .process-flip-card > * {
+          visibility: visible;
+        }
+
+        .process-flip-card__container {
+          height: 100%;
+          position: absolute;
+          right: 0;
+          transform-origin: left;
+          transform-style: preserve-3d;
+          transition: all 1s ease;
+          width: 100%;
+        }
+
+        .process-card:hover .process-flip-card__container {
+          transform: rotateY(-180deg);
+        }
+
+        .process-card-front,
+        .process-card-back {
+          backface-visibility: hidden;
+          height: 100%;
+          left: 0;
+          position: absolute;
+          top: 0;
+          width: 100%;
+        }
+
+        .process-card-front {
+          background-color: #faf8f5;
+          height: 20rem;
+          width: 20rem;
+          border-radius: 1rem;
+          overflow: hidden;
+        }
+
+        .process-card-front__tp {
+          align-items: center;
+          clip-path: polygon(0 0, 100% 0, 100% 90%, 57% 90%, 50% 100%, 43% 90%, 0 90%);
+          display: flex;
+          flex-direction: column;
+          height: 16rem;
+          justify-content: center;
+          padding: 1rem;
+        }
+
+        .process-card-front__bt {
+          align-items: center;
+          display: flex;
+          justify-content: center;
+        }
+
+        .process-card-back {
+          background-color: #faf8f5;
+          transform: rotateY(180deg);
+          border-radius: 1rem;
+          overflow: hidden;
+        }
+
+        .process-card-back img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+
+        .process-inside-page {
+          background-color: #faf8f5;
+          box-shadow: inset 20rem 0px 5rem -2.5rem rgba(0, 0, 0, 0.25);
+          height: 100%;
+          padding: 1.5rem;
+          position: absolute;
+          right: 0;
+          transition: all 1s ease;
+          width: 20rem;
+          z-index: 1;
+          border-radius: 1rem;
+          overflow-y: auto;
+          overflow-x: hidden;
+        }
+
+        .process-card:hover .process-inside-page {
+          box-shadow: inset 1rem 0px 5rem -2.5rem rgba(0, 0, 0, 0.1);
+          width: 20rem;
+        }
+
+        .process-inside-page__container {
+          align-items: center;
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          text-align: center;
+          width: 100%;
+          overflow: hidden;
+        }
+
+        .process-inside-page__btn {
+          background-color: transparent;
+          border: 3px solid;
+          border-radius: 0.5rem;
+          font-size: 1.2rem;
+          font-weight: 600;
+          margin-top: 2rem;
+          overflow: hidden;
+          padding: 0.7rem 0.75rem;
+          position: relative;
+          text-decoration: none;
+          transition: all 0.3s ease;
+          width: 90%;
+          z-index: 10;
+          outline: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+        }
+
+        .process-inside-page__btn:focus {
+          outline: none;
+          box-shadow: none;
+        }
+
+        .process-inside-page__btn::before {
+          content: "";
+          height: 100%;
+          left: 0;
+          position: absolute;
+          top: 0;
+          transform: scaleY(0);
+          transition: all 0.3s ease;
+          width: 100%;
+          z-index: -1;
+          background-color: var(--btn-color, #262626);
+        }
+
+        .process-inside-page__btn:hover {
+          color: #faf8f5 !important;
+        }
+
+        .process-inside-page__btn:hover::before {
+          transform: scaleY(1);
+          background-color: var(--btn-color, #262626) !important;
+        }
+      `}</style>
     </section>
   )
 }
 
-const ProcessCard = memo(function ProcessCard({ 
-  process, 
-  index, 
-  isExpanded, 
-  onToggle,
-  progress,
-  range
-}: { 
-  process: typeof processes[0]
-  index: number
-  isExpanded: boolean
-  onToggle: () => void
-  progress: MotionValue<number>
-  range: [number, number]
-}) {
-  const cardRef = useRef<HTMLDivElement>(null)
-  const cardInView = useInView(cardRef, { once: true, amount: 0.3, margin: "0px 0px -100px 0px" })
-  
+function ProcessCard({ process, index }: { process: typeof processes[0], index: number }) {
   return (
     <motion.div
-      ref={cardRef}
-      initial={{ opacity: 0, x: 100, y: 100 }}
-      animate={cardInView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: 100, y: 100 }}
-        transition={{ 
-        duration: 0.8, 
-        delay: index * 0.15,
-        ease: [0.16, 1, 0.3, 1] as [number, number, number, number]
-      }}
-      className="border-b border-[#252525]/10 last:border-b-0"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, delay: index * 0.2, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
+      className="process-card-section"
     >
-      {/* Category Header */}
-      <button
-        onClick={onToggle}
-        className="w-full text-left py-6 md:py-8 group cursor-pointer"
-      >
-        <div className="flex items-center justify-between">
-          <AnimatedHeading
-            progress={progress}
-            range={range}
-            className="text-4xl md:text-5xl lg:text-6xl font-semibold text-[#252525] tracking-tight"
-          >
-            {process.category}
-          </AnimatedHeading>
-          
-          {/* Expand indicator */}
-          <motion.div
-            animate={{ rotate: isExpanded ? 45 : 0 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-            className="text-2xl md:text-3xl text-[#252525]/40 group-hover:text-[#252525]/60"
-          >
-            +
-          </motion.div>
-        </div>
-      </button>
-
-      {/* Expanded Content */}
-      <AnimatePresence>
-        {isExpanded && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ 
-              height: 'auto', 
-              opacity: 1,
-              transition: {
-                height: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
-                opacity: { duration: 0.5, delay: 0.15, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }
-              }
-            }}
-            exit={{ 
-              height: 0, 
-              opacity: 0,
-              transition: {
-                height: { duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
-                opacity: { duration: 0.3, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }
-              }
-            }}
-            className="overflow-hidden"
-          >
-            <motion.div
-              initial={{ y: 30, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -20, opacity: 0 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-              className="pb-12 md:pb-16 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12"
-            >
-              {/* Main Content */}
-              <div className="lg:col-span-2">
-                <h4 className="text-3xl md:text-4xl font-semibold text-[#252525] mb-6 tracking-tight">
-                  — {process.title}
-                </h4>
-                <p className="text-base md:text-lg text-[#252525]/70 leading-relaxed max-w-2xl">
-                  {process.description}
+      <div className="process-card">
+        {/* Flip Card */}
+        <div className="process-flip-card">
+          <div className="process-flip-card__container">
+            {/* Card Front */}
+            <div className="process-card-front">
+              <div className="process-card-front__tp relative overflow-hidden">
+                <img 
+                  src="/hero-gradient.png" 
+                  alt={process.category}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="relative z-10 flex flex-col items-center justify-center h-full">
+                  {/* Icon */}
+                  {/* <div className="w-12 h-12 mb-4 flex items-center justify-center mx-auto">
+                    <div className="w-full h-full bg-white/20 rounded-lg flex items-center justify-center">
+                      <span className="text-white text-2xl font-bold">{process.category[0]}</span>
+                    </div>
+                  </div> */}
+                  <h2 className="text-white text-xl font-semibold mt-2 text-center card-front__heading">
+                    {process.category}
+                  </h2>
+                  <p className="text-white/90 text-sm mt-1 text-center card-front__text-price">
+                    {process.title}
+                  </p>
+                </div>
+              </div>
+              <div className="process-card-front__bt" style={{ height: '4rem' }}>
+                <p className="text-base font-bold card-front__text-view" style={{ color: process.pastelColor }}>
+                  View me
                 </p>
               </div>
+            </div>
 
-              {/* Related Services */}
-              <div className="lg:col-span-1">
-                <h5 className="text-sm md:text-base font-semibold text-[#252525] mb-6 uppercase tracking-wider">
-                  Related Services
-                </h5>
-                <ul className="space-y-3">
-                  {process.services.map((service, serviceIndex) => (
-                    <motion.li
-                      key={service}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ 
-                        duration: 0.4, 
-                        delay: 0.3 + (serviceIndex * 0.05),
-                        ease: [0.16, 1, 0.3, 1] as [number, number, number, number]
-                      }}
-                      className="text-sm md:text-base text-[#252525]/80"
-                    >
-                      {service}
-                    </motion.li>
-                  ))}
-                </ul>
+            {/* Card Back */}
+            <div className="process-card-back">
+              <div className="w-full h-full relative overflow-hidden">
+                <img 
+                  src={index === 0 ? '/f1.png' : index === 1 ? '/f2.png' : '/f3.png'}
+                  alt={process.title}
+                  className="w-full h-full object-cover"
+                  style={{ objectFit: 'cover' }}
+                />
               </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
-  )
-})
+            </div>
+          </div>
+        </div>
 
-const AnimatedHeading = ({ 
-  children, 
-  progress, 
-  range, 
-  className 
-}: { 
-  children: string
-  progress: MotionValue<number>
-  range: [number, number]
-  className?: string
-}) => {
-  const opacity = useTransform(progress, range, [0.2, 1])
-  const y = useTransform(progress, range, [30, 0])
-  const scale = useTransform(progress, range, [0.95, 1])
-  
-  return (
-    <motion.h3 
-      style={{ opacity, y, scale }}
-      className={className}
-    >
-      {children}
-    </motion.h3>
+        {/* Inside Page */}
+        <div className="process-inside-page">
+          <div className="process-inside-page__container">
+            <h3 className="text-2xl font-bold mb-4 inside-page__heading" style={{ color: process.pastelColor }}>
+              {process.title}
+            </h3>
+            <p className="text-[#252525] text-sm leading-relaxed mb-4 inside-page__text">
+              {process.description}
+            </p>
+            <a
+              href="#"
+              className="process-inside-page__btn"
+              style={{
+                borderColor: process.pastelColor,
+                color: process.pastelColor,
+                '--btn-color': process.pastelColor
+              } as React.CSSProperties & { '--btn-color': string }}
+            >
+              Learn more
+            </a>
+          </div>
+        </div>
+      </div>
+    </motion.div>
   )
 }

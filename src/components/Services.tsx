@@ -83,7 +83,7 @@ export function Services() {
       </div>
 
       {/* Box Container */}
-      <div className="bg-[#1a1a1a] rounded-2xl md:rounded-3xl px-6 md:px-12 lg:px-16 py-12 md:py-16 lg:py-20">
+      <div className="bg-[#262626] rounded-2xl md:rounded-3xl px-6 md:px-12 lg:px-16 py-12 md:py-16 lg:py-20">
         {/* Services List */}
         <div className="mb-12 md:mb-16">
           {services.map((service, i) => (
@@ -103,7 +103,7 @@ export function Services() {
         <div>
           <a 
             href="#pricing"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#faf8f5] text-[#1a1a1a] text-sm font-medium rounded-full hover:bg-white transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#faf8f5] text-[#262626] text-sm font-medium rounded-full hover:bg-white transition-colors"
           >
             See pricing
             <span className="text-base leading-none">+</span>
@@ -283,7 +283,7 @@ const ServiceItem = memo(({
                       delay: 0.4 + (tagIndex * 0.06), 
                       ease: easing.smooth 
                     }}
-                    className="px-4 py-2 bg-[#faf8f5] text-[#1a1a1a] text-sm font-medium rounded-full"
+                    className="px-4 py-2 bg-[#faf8f5] text-[#262626] text-sm font-medium rounded-full"
                   >
                     {tag}
                   </motion.span>
