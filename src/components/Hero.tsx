@@ -1,5 +1,9 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useState, useEffect } from 'react'
+import { InteractiveGradient } from './InteractiveGradient'
+
+// Pre-compute marquee words array to avoid creating on every render
+const MARQUEE_WORDS = Array(16).fill(null).flatMap(() => ["Start.", "Build.", "Scale."])
 
 export function Hero() {
   const { scrollY } = useScroll()
@@ -31,14 +35,23 @@ export function Hero() {
         
         {/* Huge Text & Right Info */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-8 lg:mb-12">
-            <motion.h1 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                className="text-[20vw] leading-[0.8] font-bold text-[#252525] tracking-tight -ml-[0.05em]"
-            >
-                Renor
-            </motion.h1>
+            <h1 className="text-[20vw] leading-[0.8] font-bold text-[#262626] tracking-tight -ml-[0.05em] flex overflow-hidden">
+                {"Renor".split("").map((char, i) => (
+                    <motion.span
+                        key={i}
+                        initial={{ opacity: 0, y: 80 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ 
+                            duration: 0.8, 
+                            delay: 0.1 + i * 0.08,
+                            ease: [0.16, 1, 0.3, 1] 
+                        }}
+                        className="inline-block"
+                    >
+                        {char}
+                    </motion.span>
+                ))}
+            </h1>
 
             <motion.div 
                 initial={{ opacity: 0, x: 20 }}
@@ -83,8 +96,8 @@ export function Hero() {
                             duration: 80 
                         }}
                     >
-                        {[...Array(16)].map((_) => ["Start.", "Build.", "Scale."]).flat().map((word, i) => (
-                            <span key={i} className="text-lg md:text-xl lg:text-2xl font-bold text-[#6b6a63]/30 tracking-widest">
+                        {MARQUEE_WORDS.map((word, i) => (
+                            <span key={i} className="text-lg md:text-xl lg:text-2xl font-bold text-[#6b6a63]/50 tracking-widest">
                                 {word}
                             </span>
                         ))}
@@ -102,8 +115,8 @@ export function Hero() {
                             duration: 80 
                         }}
                     >
-                        {[...Array(16)].map((_) => ["Start.", "Build.", "Scale."]).flat().map((word, i) => (
-                            <span key={`row2-${i}`} className="text-lg md:text-xl lg:text-2xl font-bold text-[#6b6a63]/30 tracking-widest">
+                        {MARQUEE_WORDS.map((word, i) => (
+                            <span key={`row2-${i}`} className="text-lg md:text-xl lg:text-2xl font-bold text-[#6b6a63]/40 tracking-widest">
                                 {word}
                             </span>
                         ))}
@@ -121,36 +134,8 @@ export function Hero() {
 
       </div>
 
-      {/* Bottom Gradient Image Section */}
-      <motion.div 
-        initial={{ y: 100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1.2, delay: 1.0, ease: [0.16, 1, 0.3, 1] }}
-        className="relative w-full h-[130px] md:h-[160px] overflow-hidden mt-auto rounded-t-[1rem]"
-      >
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent z-10 pointer-events-none" />
-        <div className="absolute inset-0 bg-black/10 z-10 pointer-events-none" />
-        
-        <img 
-          src="/hero-gradient.png" 
-          alt="Hero Gradient"
-          className="w-full h-full object-cover"
-        />
-        
-        {/* Overlay Text */}
-        <div className="absolute inset-0 z-20 flex items-center justify-between px-7 md:px-12 text-white/80 text-[10px] md:text-xs font-medium tracking-wider uppercase pointer-events-none">
-            <div className="flex items-center h-full pt-4">
-                <span>{time || "00:00 AM"}</span>
-            </div>
-            <div className="flex items-center h-full pt-4 ml-15">
-                <span>The System Grid</span>
-            </div>
-            <div className="flex flex-col items-end justify-center h-full pt-4 text-right">
-                <span>37°49'11.6"N</span>
-                <span>—38.0" N⊕ 122°28'42.9"W</span>
-            </div>
-        </div>
-      </motion.div>
+      {/* Bottom Interactive Gradient Section */}
+      <InteractiveGradient time={time} />
 
     </motion.div>
   )

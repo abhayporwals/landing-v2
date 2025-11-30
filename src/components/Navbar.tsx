@@ -2,7 +2,11 @@ import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 
-export function Navbar() {
+interface NavbarProps {
+  visible?: boolean
+}
+
+export function Navbar({ visible = true }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
 
@@ -10,14 +14,14 @@ export function Navbar() {
     <>
       <motion.nav 
         initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        animate={{ y: visible ? 0 : -100, opacity: visible ? 1 : 0 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="fixed top-0 left-0 right-0 z-50 px-6 py-8 flex justify-between items-start pointer-events-none"
       >
         {/* Logo Section - Pointer events auto to allow clicking if needed */}
         <div className="flex flex-col items-center gap-0.3 pointer-events-auto">
           <div className="w-8 h-8 relative">
-             <img src="/renor-logo.png" alt="Renor Logo" className="w-full h-full object-contain" />
+             <img src="/renor-logo.png" alt="Renor Logo" className="w-full h-full object-contain" loading="eager" decoding="sync" />
           </div>
           {/* Gradient Line */}
           <div className="h-[2.5px] w-[85%] bg-gradient-to-r from-[#ff4d00] via-[#ffea00] to-[#0066ff]" />
