@@ -22,7 +22,13 @@ function RevealImageListItem({ text, images }: ShowImageListItemProps) {
       </h1>
       <div className={container}>
         <div className={effect}>
-          <img alt={images[1].alt} src={images[1].src} className="h-full w-full object-cover" />
+          <img
+            alt={images[1].alt}
+            src={images[1].src}
+            className="h-full w-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       </div>
       <div
@@ -32,7 +38,13 @@ function RevealImageListItem({ text, images }: ShowImageListItemProps) {
         )}
       >
         <div className={cn(effect, "duration-200")}>
-          <img alt={images[0].alt} src={images[0].src} className="h-full w-full object-cover" />
+          <img
+            alt={images[0].alt}
+            src={images[0].src}
+            className="h-full w-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       </div>
     </div>

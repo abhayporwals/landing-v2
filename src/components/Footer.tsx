@@ -82,6 +82,8 @@ export function Footer() {
             src="/footer.png" 
             alt="Renor Systems" 
             className="w-full h-full object-contain lg:object-cover"
+            loading="lazy"
+            decoding="async"
           />
         </motion.div>
 

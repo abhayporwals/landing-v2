@@ -331,6 +331,8 @@ function ProcessCard({ process, index }: { process: typeof processes[0], index: 
                   src={process.frontImage}
                   alt={process.category}
                   className="absolute inset-0 w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
             </div>
@@ -343,6 +345,8 @@ function ProcessCard({ process, index }: { process: typeof processes[0], index: 
                   alt={process.title}
                   className="w-full h-full object-cover"
                   style={{ objectFit: 'cover' }}
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
             </div>

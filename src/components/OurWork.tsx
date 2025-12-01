@@ -6,27 +6,27 @@ import { cn } from '@/lib/utils'
 
 const workImages = [
   {
-    src: '/gta.png',
+    src: '/2.png',
     alt: 'Renor Labs system grid cityscape',
   },
   {
-    src: '/orbit.png',
+    src: '/2.png',
     alt: 'Renor Labs orbital diagram artwork',
   },
   {
-    src: '/gta.png',
+    src: '/2.png',
     alt: 'Renor Labs abstract product collage',
   },
   {
-    src: '/japan-gradient.png',
+    src: '/2.png',
     alt: 'Renor Labs gradient poster composition',
   },
   {
-    src: '/grid.png',
+    src: '/2.png',
     alt: 'Renor Labs system grid layout',
   },
   {
-    src: '/footer.png',
+    src: '/2.png',
     alt: 'Renor Labs architectural footer graphic',
   },
   {
@@ -34,7 +34,7 @@ const workImages = [
     alt: 'Renor Labs monochrome system illustration',
   },
   {
-    src: 'fuji.png',
+    src: '/2.png',
     alt: 'Renor Labs experimental bloom artwork',
   },
 ]
